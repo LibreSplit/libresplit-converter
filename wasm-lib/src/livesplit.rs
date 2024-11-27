@@ -13,15 +13,13 @@ pub struct Segment {
 }
 
 pub fn read(file: XmlDocument) -> String {
-    let mut buf = String::new();
 
     // Read game name.
-    let game_name = file.root().req("GameName").element().unwrap();
-    buf.push_str(game_name.text().unwrap());
+    let elm_game_name = file.root().opt("GameName").element();
+    let game_name = match elm_game_name {
+        Some(name) => name.text().expect("Unknown Game"),
+        None => "Unknown Game",
+    };
 
-    // Read category name.
-    let category_name = file.root().req("CategoryName").element().unwrap();
-    buf.push_str(category_name.text().unwrap());
-
-    buf
+    game_name.to_string()
 }
