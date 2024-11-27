@@ -8,31 +8,48 @@ pub struct LiveSplitFile {
     segments: Vec<Segment>,
 }
 
+impl LiveSplitFile {
+    pub fn get(&self) -> String {
+        let mut segment_buffer = String::new();
+        for segment in &self.segments {
+            segment_buffer.push_str(format!("{} - {}\n", segment.name, segment.split_time).as_str());
+        }
+        format!("Name: {}, Category: {}, Platform: {}, Attempts: {}, Segments: {}",
+            self.game_name,
+            self.category_name,
+            self.platform,
+            self.attempt_count,
+            segment_buffer
+        )
+    }
+}
+
 pub struct Segment {
+    name: String,
     split_time: String,
 }
 
-pub fn read(file: XmlDocument) -> String {
+pub fn read(file: XmlDocument) -> LiveSplitFile {
     // Read game name.
     let elm_game_name = file.root().opt("GameName").element();
     let game_name = match elm_game_name {
         Some(name) => name.text().expect("Unknown Game"),
         None => "Unknown Game",
-    };
+    }.to_string();
 
     // Read category.
     let elm_category_name = file.root().opt("CategoryName").element();
     let category_name = match elm_category_name {
         Some(category) => category.text().expect("Unknown Category"),
         None => "Unknown Category",
-    };
+    }.to_string();
 
     // Read platform.
     let elm_platform = file.root().opt("Platform").element();
     let platform  = match elm_platform {
         Some(plat) => plat.text().expect("Unknown Platform"),
         None => "Unknown Platform",
-    };
+    }.to_string();
 
     // Read attempt count.
     let elm_attempt_count = file.root().opt("AttemptCount").element();
@@ -42,5 +59,17 @@ pub fn read(file: XmlDocument) -> String {
     };
     let attempt_count: u32 = attempt_count_str.trim().parse().unwrap_or(0);
 
-    game_name.to_string()
+    // Read splits.
+    let mut segments: Vec<Segment> = Vec::new();
+    // TODO: this expect() is weird
+    let elm_segments = file.root().opt("Segments").element().expect("");
+    for elm_segment in elm_segments.elements().filter(|e| e.is_named("Segment")) {
+        let segment = Segment {
+            name: elm_segment.opt("Name").element().expect("").text().unwrap_or("Unknown Split").to_string(),
+            split_time: "0.000000".to_string(),
+        };
+        segments.push(segment);
+    }
+
+    LiveSplitFile {game_name, category_name, platform, attempt_count, segments}
 }

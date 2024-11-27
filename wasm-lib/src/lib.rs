@@ -14,5 +14,5 @@ pub fn add(a: i32, b: i32) -> i32 {
 pub fn convert(file: String) -> String {
     let cursor = Cursor::new(file);
     let xml = XmlReader::parse_auto(cursor).unwrap();
-    livesplit::read(xml)
+    livesplit::read(xml).get()
 }
