@@ -1,3 +1,6 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct LibreSplitFile {
     title: String,
     splits: Vec<Split>,
@@ -5,6 +8,7 @@ pub struct LibreSplitFile {
     height: u32,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Split {
     title: String,
     time: String,
