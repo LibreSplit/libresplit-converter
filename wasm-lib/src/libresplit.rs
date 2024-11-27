@@ -2,16 +2,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LibreSplitFile {
-    title: String,
-    splits: Vec<Split>,
-    width: u32,
-    height: u32,
+    pub title: String,
+    pub splits: Vec<Split>,
+    pub width: u32,
+    pub height: u32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Split {
-    title: String,
-    time: String,
-    best_time: String,
-    best_segment: String,
+    pub title: String,
+    pub time: String,
+    pub best_time: String,
+    pub best_segment: String,
 }

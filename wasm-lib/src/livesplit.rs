@@ -1,11 +1,11 @@
 use spex::xml::XmlDocument;
 
 pub struct LiveSplitFile {
-    game_name: String,
-    category_name: String,
-    platform: String,
-    attempt_count: u32,
-    segments: Vec<Segment>,
+    pub game_name: String,
+    pub category_name: String,
+    pub platform: String,
+    pub attempt_count: u32,
+    pub segments: Vec<Segment>,
 }
 
 impl LiveSplitFile {
@@ -25,8 +25,8 @@ impl LiveSplitFile {
 }
 
 pub struct Segment {
-    name: String,
-    split_time: String,
+    pub name: String,
+    pub split_time: String,
 }
 
 pub fn read(file: XmlDocument) -> LiveSplitFile {
