@@ -3,6 +3,7 @@ use std::io::Cursor;
 use spex::parsing::XmlReader;
 use wasm_bindgen::prelude::*;
 
+mod libresplit;
 mod livesplit;
 
 #[wasm_bindgen]
