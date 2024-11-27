@@ -31,6 +31,20 @@ function App() {
     }
   };
 
+  const handleDownload = () => {
+    if (!result) return;
+
+    const blob = new Blob([result], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'converted.json';
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div>
       <h1>LibreSplit Converter</h1>
@@ -39,7 +53,12 @@ function App() {
         <button onClick={handleSubmit} disabled={!selectedFile}>Convert</button>
       </div>
       <div>
-        {result && <p>Result: {result}</p>}
+        {result && (
+          <div>
+            <p>Conversion successful! Click the button below to download your LibreSplit file.</p>
+            <button onClick={handleDownload}>Download</button>
+          </div>
+        )}
       </div>
     </div>
   );
