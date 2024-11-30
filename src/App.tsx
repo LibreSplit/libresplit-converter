@@ -65,7 +65,7 @@ function App() {
         {result && (
           <div className="space-y-4">
             <p className="text-green-600 font-medium text-center">
-              Conversion successful! Click the button below to download your LibreSplti file.
+              Conversion successful! Click the button below to download your LibreSplit file.
             </p>
             <button
               onClick={handleDownload}
