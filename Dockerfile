@@ -7,7 +7,7 @@ WORKDIR /app/wasm-lib
 
 COPY ./wasm-lib .
 
-RUN wasm-pack build --target web --out-dir /app/pkg
+RUN wasm-pack build --target web --out-dir /app/wasm-lib/pkg
 
 # Stage 2: Build React frontend.
 FROM node:18 as react-builder
