@@ -8,22 +8,6 @@ pub struct LiveSplitFile {
     pub segments: Vec<Segment>,
 }
 
-impl LiveSplitFile {
-    pub fn get(&self) -> String {
-        let mut segment_buffer = String::new();
-        for segment in &self.segments {
-            segment_buffer.push_str(format!("{} - {}\n", segment.name, segment.split_time).as_str());
-        }
-        format!("Name: {}, Category: {}, Platform: {}, Attempts: {}, Segments: {}",
-            self.game_name,
-            self.category_name,
-            self.platform,
-            self.attempt_count,
-            segment_buffer
-        )
-    }
-}
-
 pub struct Segment {
     pub name: String,
     pub split_time: String,
