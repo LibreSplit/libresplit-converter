@@ -66,7 +66,7 @@ pub fn read(file: XmlDocument) -> LiveSplitFile {
     for elm_segment in elm_segments.elements().filter(|e| e.is_named("Segment")) {
         let segment = Segment {
             name: elm_segment.opt("Name").element().expect("").text().unwrap_or("Unknown Split").to_string(),
-            split_time: "0.000000".to_string(),
+            split_time: elm_segment.opt("BestSegmentTime").opt("RealTime").element().expect("").text().unwrap_or("0.000000").to_string(),
         };
         segments.push(segment);
     }
