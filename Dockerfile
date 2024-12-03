@@ -1,6 +1,7 @@
 # Stage 1: Build rust WASM pacakge.
 FROM rust:latest AS wasm-builder
 
+RUN rustup target add wasm32-unknown-unknown
 RUN cargo install wasm-pack
 
 WORKDIR /app/wasm-lib
