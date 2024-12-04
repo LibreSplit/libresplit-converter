@@ -41,14 +41,43 @@ impl LiveSplitFile {
 
         // Read splits.
         let mut segments: Vec<Segment> = Vec::new();
-        // TODO: this expect() is weird
-        let elm_segments = file.root().opt("Segments").element().expect("");
-        for elm_segment in elm_segments.elements().filter(|e| e.is_named("Segment")) {
-            let segment = Segment {
-                name: elm_segment.opt("Name").element().expect("").text().unwrap_or("Unknown Split").to_string(),
-                split_time: elm_segment.opt("SplitTimes").opt("SplitTime").opt("RealTime").element().expect("").text().unwrap_or("0.000000").to_string(),
-            };
-            segments.push(segment);
+        let elm_segments = file.root().opt("Segments").element();
+        match elm_segments {
+            Some(segments_iter) => {
+                for elm_segment in segments_iter.elements().filter(|e| e.is_named("Segment")) {
+                    // Get split name.
+                    let elm_name = elm_segment.opt("Name").element();
+                    let name = match elm_name {
+                        Some(name) => name.text().unwrap_or("Unknown Split").to_string(),
+                        None => "Unknown Split".to_string(),
+                    };
+
+                    // Get split time.
+                    let elm_split_times = elm_segment.opt("SplitTimes").opt("SplitTime").element();
+                    let split_time = match elm_split_times {
+                        Some(elm_split_time) => {
+                            let elm_real_time = elm_split_time.opt("RealTime").element();
+                            match elm_real_time {
+                                Some(real_time) => real_time.text().unwrap_or("0.000000").to_string(),
+                                None => "0.000000".to_string() // default if element is missing.
+                            }
+                        }
+                        None => "0.000000".to_string()
+                    };
+                    let segment = Segment {
+                        name,
+                        split_time,
+                    };
+                    segments.push(segment);
+                }
+            }
+            None => {
+                let placeholder = Segment {
+                    name: "No Splits Provided".to_string(),
+                    split_time: "0.000000".to_string(),
+                };
+                segments.push(placeholder);
+            }
         }
 
         LiveSplitFile {game_name, category_name, platform, attempt_count, segments}
