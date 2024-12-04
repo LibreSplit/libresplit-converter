@@ -10,6 +10,6 @@ mod livesplit;
 pub fn convert(file: String) -> String {
     let cursor = Cursor::new(file);
     let xml = XmlReader::parse_auto(cursor).unwrap();
-    let livesplit_data = livesplit::read(xml);
+    let livesplit_data = livesplit::LiveSplitFile::new(xml);
     libresplit::LibreSplitFile::from_livesplit(livesplit_data).get()
 }
