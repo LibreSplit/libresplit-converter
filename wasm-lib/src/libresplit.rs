@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
+use serde_json::to_string_pretty;
 
 use crate::livesplit::LiveSplitFile;
 
@@ -36,7 +36,7 @@ impl LibreSplitFile {
     }
 
     pub fn get(&self) -> String {
-        let rtn = to_string(&self).unwrap_or("".to_string());
+        let rtn = to_string_pretty(&self).unwrap_or("".to_string());
         format!("{}", rtn)
     }
 }
