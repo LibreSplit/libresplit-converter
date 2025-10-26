@@ -8,7 +8,7 @@ Web app for converting LiveSplit files into the JSON format for [LibreSplit](htt
 ## Buiding (with Docker)
 There is a dockerfile set up to ease building the project. Run the following to build and serve the app.
 ```bash
-git clone https://github.com/JackTench/libresplit-converter
+git clone https://github.com/LibreSplit/libresplit-converter
 cd libresplit-converter
 docker build -t libresplit-converter .
 docker run -p 8080:80 libresplit-converter
@@ -23,9 +23,17 @@ docker run -p 8080:80 libresplit-converter
 
 ### Building
 ```bash
-git clone https://github.com/JackTench/libresplit-converter
+git clone https://github.com/LibreSplit/libresplit-converter
 cd libresplit-converter
 npm install
-npm run build:wasm
-npm start
+npm run build
+```
+
+### Dev Server
+```bash
+git clone https://github.com/LibreSplit/libresplit-converter
+cd libresplit-converter
+npm install
+npm build:wasm
+npm run dev
 ```
