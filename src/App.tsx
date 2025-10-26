@@ -48,9 +48,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-6">
+      <div className="w-full max-w-lg space-y-6 rounded-lg bg-white p-6 shadow-lg">
+        <h1 className="text-center text-2xl font-bold text-gray-800">
           LibreSplit Converter
         </h1>
         <div className="space-y-4">
@@ -58,13 +58,13 @@ function App() {
             type="file"
             accept=".lss"
             onChange={handleFileChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-indigo-500"
+            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-600 focus:ring focus:ring-indigo-500 focus:outline-none"
           />
           <button
             onClick={handleSubmit}
             disabled={!selectedFile}
             className={
-              'w-full px-4 py-2 text-black font-semibold rounded-md ${selectedFile ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-400 cursor-not-allowed"}'
+              '${selectedFile ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-400 cursor-not-allowed"} w-full rounded-md px-4 py-2 font-semibold text-black'
             }
           >
             Convert
@@ -72,13 +72,13 @@ function App() {
         </div>
         {result && (
           <div className="space-y-4">
-            <p className="text-green-600 font-medium text-center">
+            <p className="text-center font-medium text-green-600">
               Conversion successful! Click the button below to download your
               LibreSplit file.
             </p>
             <button
               onClick={handleDownload}
-              className="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700"
+              className="w-full rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
             >
               Download
             </button>
