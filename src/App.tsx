@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import init, { convert } from "wasm-lib";
-import './App.css';
 
 function App() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
