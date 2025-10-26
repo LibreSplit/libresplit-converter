@@ -6,6 +6,7 @@ use crate::livesplit::LiveSplitFile;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LibreSplitFile {
     pub title: String,
+    pub attempt_count: u32,
     pub splits: Vec<Split>,
     pub width: u32,
     pub height: u32,
@@ -15,6 +16,7 @@ impl LibreSplitFile {
     pub fn from_livesplit(lss: LiveSplitFile) -> Self {
         // Get title.
         let title = lss.game_name + " " + &lss.category_name;
+        let attempt_count = lss.attempt_count;
 
         // Constructs splits vector.
         let mut splits: Vec<Split> = Vec::new();
@@ -32,7 +34,7 @@ impl LibreSplitFile {
         let width = 600;
         let height = 800;
 
-        LibreSplitFile { title, splits, width, height }
+        LibreSplitFile { title, attempt_count, splits, width, height }
     }
 
     pub fn get(&self) -> String {
