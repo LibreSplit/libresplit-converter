@@ -32,14 +32,16 @@ function App() {
   };
 
   const handleDownload = () => {
-    if (!result) return;
+    if (!result || !selectedFile) return;
+
+    const fileName = selectedFile.name.replace(/\.[^/.]+$/, '.json');
 
     const blob = new Blob([result], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'converted.json';
+    link.download = fileName;
     link.click();
 
     URL.revokeObjectURL(url);
