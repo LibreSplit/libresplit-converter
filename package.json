@@ -44,5 +44,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.15"
-  }
+  },
+  "homepage": "https://jacktench.github.io/libresplit-converter"
 }
