@@ -4,6 +4,9 @@
   "homepage": "https://converter.libresplit.org",
   "private": true,
   "scripts": {
+    "format": "npm run format:js && npm run format:rust",
+    "format:js": "prettier . --write",
+    "format:rust": "cargo fmt --manifest-path wasm-lib/Cargo.toml --all",
     "dev": "vite",
     "build": "npm run build:wasm && npm run build:js",
     "build:wasm": "cd wasm-lib && wasm-pack build --target web --out-dir pkg",
@@ -25,6 +28,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "prettier": "3.6.2",
     "tailwindcss": "^4.1.16",
     "typescript": "~5.9.3",
     "vite": "^7.1.7",
