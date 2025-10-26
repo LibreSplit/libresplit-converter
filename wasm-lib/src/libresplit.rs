@@ -34,7 +34,13 @@ impl LibreSplitFile {
         let width = 600;
         let height = 800;
 
-        LibreSplitFile { title, attempt_count, splits, width, height }
+        LibreSplitFile {
+            title,
+            attempt_count,
+            splits,
+            width,
+            height,
+        }
     }
 
     pub fn get(&self) -> String {
