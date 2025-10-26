@@ -1,0 +1,52 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Workflows
+.github
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*.local
+
+# Lockfiles (if you don't want Prettier to format them)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+Cargo.lock
+
+# Git & IDE
+.git
+.vscode
+.idea
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Rust source files (use rustfmt instead)
+wasm-lib/**/*.*
+
+# Don’t format binaries or images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.icns
+*.svg
+*.pdf
+*.zip
+*.tar
+*.gz
+*.wasm
+
+README.md

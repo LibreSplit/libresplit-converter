@@ -15,27 +15,30 @@ impl LiveSplitFile {
         let game_name = match elm_game_name {
             Some(name) => name.text().expect("Unknown Game"),
             None => "Unknown Game",
-        }.to_string();
+        }
+        .to_string();
 
         // Read category.
         let elm_category_name = file.root().opt("CategoryName").element();
         let category_name = match elm_category_name {
             Some(category) => category.text().expect("Unknown Category"),
             None => "Unknown Category",
-        }.to_string();
+        }
+        .to_string();
 
         // Read platform.
         let elm_platform = file.root().opt("Platform").element();
-        let platform  = match elm_platform {
+        let platform = match elm_platform {
             Some(plat) => plat.text().expect("Unknown Platform"),
             None => "Unknown Platform",
-        }.to_string();
+        }
+        .to_string();
 
         // Read attempt count.
         let elm_attempt_count = file.root().opt("AttemptCount").element();
         let attempt_count_str = match elm_attempt_count {
             Some(count_str) => count_str.text().expect("0"),
-            None => "0"
+            None => "0",
         };
         let attempt_count: u32 = attempt_count_str.trim().parse().unwrap_or(0);
 
@@ -58,16 +61,15 @@ impl LiveSplitFile {
                         Some(elm_split_time) => {
                             let elm_real_time = elm_split_time.opt("RealTime").element();
                             match elm_real_time {
-                                Some(real_time) => real_time.text().unwrap_or("0.000000").to_string(),
-                                None => "0.000000".to_string() // default if element is missing.
+                                Some(real_time) => {
+                                    real_time.text().unwrap_or("0.000000").to_string()
+                                }
+                                None => "0.000000".to_string(), // default if element is missing.
                             }
                         }
-                        None => "0.000000".to_string()
+                        None => "0.000000".to_string(),
                     };
-                    let segment = Segment {
-                        name,
-                        split_time,
-                    };
+                    let segment = Segment { name, split_time };
                     segments.push(segment);
                 }
             }
@@ -80,7 +82,13 @@ impl LiveSplitFile {
             }
         }
 
-        LiveSplitFile {game_name, category_name, platform, attempt_count, segments}
+        LiveSplitFile {
+            game_name,
+            category_name,
+            platform,
+            attempt_count,
+            segments,
+        }
     }
 }
 

@@ -11,25 +11,25 @@ COPY ./wasm-lib .
 RUN wasm-pack build --target web --out-dir /app/wasm-lib/pkg
 
 # Stage 2: Build React frontend.
-FROM node:18 as react-builder
+FROM node:20 as react-builder
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 COPY ./public ./public
 COPY ./src ./src
-COPY tailwind.config.js tsconfig.json ./
+COPY index.html vite.config.ts tsconfig.json tsconfig.app.json tsconfig.node.json ./
 
 COPY --from=wasm-builder /app/wasm-lib/pkg ./wasm-lib/pkg
 
 RUN npm install
 
-RUN npm run build
+RUN npm run build:js
 
 # Stage 3: Serve.
 FROM nginx:alpine AS web-server
 
-COPY --from=react-builder /app/build /usr/share/nginx/html
+COPY --from=react-builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
