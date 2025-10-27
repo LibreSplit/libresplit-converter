@@ -15,7 +15,7 @@ pub struct LibreSplitFile {
 impl LibreSplitFile {
     pub fn from_livesplit(lss: LiveSplitFile) -> Self {
         // Get title.
-        let title = lss.game_name + " " + &lss.category_name;
+        let title = lss.game_name + " (" + &lss.platform + ") " + &lss.category_name;
         let attempt_count = lss.attempt_count;
 
         // Constructs splits vector.
