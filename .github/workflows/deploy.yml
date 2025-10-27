@@ -38,17 +38,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
-      - name: Install wasm-pack
-        run: |
-          if ! command -v wasm-pack >/dev/null 2>&1; then
-            cargo install wasm-pack
-          fi
-
-      - name: Build Rust WASM package
-        working-directory: ./wasm-lib
-        run: |
-          wasm-pack build --target web --out-dir pkg
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -57,6 +46,11 @@ jobs:
 
       - name: Install JavaScript dependencies
         run: npm install
+
+      - name: Build Rust WASM package
+        working-directory: ./wasm-lib
+        run: |
+          wasm-pack build --target web --out-dir pkg
 
       - name: Build frontend
         run: npm run build:js

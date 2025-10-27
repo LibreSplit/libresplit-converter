@@ -15,7 +15,6 @@ docker run -p 8080:80 libresplit-converter
 ### Dependencies
 - Rust toolchain `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 - WASM compiler target `rustup target add wasm32-unknown-unknown`
-- wasm-pack `cargo install wasm-pack`
 - NPM
 
 ### Building
@@ -31,6 +30,6 @@ npm run build
 git clone https://github.com/LibreSplit/libresplit-converter
 cd libresplit-converter
 npm install
-npm build:wasm
+npm run build
 npm run dev
 ```
