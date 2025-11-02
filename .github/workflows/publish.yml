@@ -1,19 +1,26 @@
 name: Publish WASM Package
 
 on:
-  workflow_run:
-    workflows: ["Build WASM Package"]
-    types:
-      - completed
+  push:
+    branches: [main]
 
 jobs:
-  publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        run: curl https://drager.github.io/wasm-pack/installer/init.sh -sSf | bash
+
+      - name: Build library
+        run: wasm-pack build --scope libresplit --target web --release
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -21,9 +28,7 @@ jobs:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Publish Package
-        run: |
-          cd pkg
-          npm publish --access public
+      - name: Build and Publish library
+        run: wasm-pack publish --target web --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
