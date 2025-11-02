@@ -36,4 +36,4 @@ jobs:
 
       - name: Publish to npm
         run: npm install -g npm@latest 
-      - run: wasm-pack publish --access public
+      - run: wasm-pack publish --target web --access public

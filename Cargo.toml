@@ -6,7 +6,7 @@ authors = [
   "wins1ey <wins1ey at wins1ey dot win>"
 ]
 repository = "https://github.com/LibreSplit/LibreSplit-converter"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 
 [lib]
