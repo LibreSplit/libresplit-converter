@@ -2,11 +2,17 @@ name: Publish WASM Package
 
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  build-and-publish:
+  publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,18 +23,17 @@ jobs:
           targets: wasm32-unknown-unknown
 
       - name: Install wasm-pack
-        run: curl https://drager.github.io/wasm-pack/installer/init.sh -sSf | bash
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - name: Build library
+      - name: Build WASM library
         run: wasm-pack build --scope libresplit --target web --release
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Build and Publish library
-        run: wasm-pack publish --target web --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm
+        run: npm install -g npm@latest 
+      - run: wasm-pack publish --access public
