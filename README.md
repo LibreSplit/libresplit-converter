@@ -1,4 +1,4 @@
-# LibreSplit-converter
+# converter
 
 A WASM library for converting [LiveSplit](https://livesplit.org) `.lss` files into the [LibreSplit](https://libresplit.org) `.json` format.
 
@@ -6,7 +6,7 @@ An online converter using this library is available at [libresplit.org/converter
 
 ## Install
 ```bash
-npm i @libresplit/libresplit-converter
+npm i @libresplit/converter
 ```
 
 ## Build
@@ -20,8 +20,8 @@ npm i @libresplit/libresplit-converter
 
 ### Building
 ```sh
-git clone https://github.com/LibreSplit/LibreSplit-converter
-cd LibreSplit-converter
+git clone https://github.com/LibreSplit/converter
+cd converter
 wasm-pack build --scope libresplit --target web --release
 ```
 
@@ -29,4 +29,4 @@ This outputs a compiled WASM package under `pkg/`.
 
 ---
 
-Published as an npm package under [`@libresplit/libresplit-converter`](https://npmjs.com/package/@libresplit/libresplit-converter).
+Published as an npm package under [`@libresplit/converter`](https://npmjs.com/package/@libresplit/converter).
