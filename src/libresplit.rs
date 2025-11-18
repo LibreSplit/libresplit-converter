@@ -30,9 +30,10 @@ impl LibreSplitFile {
             splits.push(split);
         }
 
-        // Get size. Default for now.
-        let width = 600;
-        let height = 800;
+        // Get size.
+        // The window of LibreSplit will not shrink beyond this size.
+        let width = 60;
+        let height = 80;
 
         LibreSplitFile {
             title,
